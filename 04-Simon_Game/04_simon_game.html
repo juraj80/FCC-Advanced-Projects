@@ -1,1 +1,259 @@
-<html>Hello</html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <style>
+ .wrap {
+  position: relative;
+  width: 402px;
+  height: 402px;
+  margin: 0 auto;
+  background-color: rgba(50,50,50,0.2);
+ }
+ .outline{
+  width:402px;
+  height:402px;
+  background-color:#444;
+  border-radius:100%;
+  }
+ .box {
+  width: 180px;
+  height: 180px;
+ border:4px solid #444;*/
+ }
+ .rw {
+  padding-top:10px;
+  padding-left:10px;
+ }
+ .inline{
+  display: inline-block;
+ }
+ .top-left {
+  border-top-left-radius:100%;
+  background-color: green;
+ }
+ .top-right {
+  border-top-right-radius:100%;
+  background-color: red;
+ }
+ .bottom-right{
+  border-bottom-right-radius:100%;
+  background-color: blue;
+ }
+ .bottom-left{
+  border-bottom-left-radius:100%;
+  background-color: yellow;
+ }
+ .circle{
+  width:160px;
+  height: 160px;
+  background-color:#fff; 
+  position: absolute;
+  top: 28%;
+  left:28%;
+  border:12px solid #444;
+  border-radius: 50%;
+ }
+ .name {
+  font-family: cursive;
+  text-align:center;
+  }
+ </style>
+ </head>
+<body>	
+ <div class="wrap">
+   <div class="outline">
+     <div class="rw">
+ <div class="box inline top-left" id="tl"></div>
+ <div class="box inline top-right" id="tr"></div>
+ <div class="box inline bottom-left" id="bl"></div>
+ <div class="box inline bottom-right" id="br"></div>
+ <div class="circle">
+   <h1 class="name">Simon</h1></div>
+   </div>
+  </div>
+ </div>
+ <script type="text/javascript">
+   
+  
+  var arrC = [];
+  var arrP = [];
+  var random = Math.floor((Math.random() * 4) + 1);
+  var i = 0;
+  
+  var TL = document.getElementById("tl");
+  var TR = document.getElementById("tr");
+  var BL = document.getElementById("bl");
+  var BR = document.getElementById("br");
+
+
+
+
+  var compTurn = function() {
+    if (arrC.length === 0) {
+      arrC.push(random);
+      response();
+      console.log("first CT", arrC);
+     } else {
+      arrC = arrP;
+      arrC.push(random);
+      response();
+      console.log("arrC is" + arrC);
+      arrP = [];
+      console.log("arrP is" + arrP);
+     }
+  };
+
+  var playerTurn = function() {
+    console.log("playerTurn"+ i);
+	console.log("arrC is "+ arrC[i]);
+
+
+
+
+	console.log("wait for onmousedown input");
+
+	if(arrC.length!==0){
+
+ 		
+
+	TL.onmousedown = function() {
+  		TL.style.backgroundColor = "white";
+  		var audio1 = document.createElement("audio");
+  		audio1.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
+  		audio1.autoplay = "true";
+  		//document.appendChild(audio1);
+  		arrP.push(1);
+  		console.log(arrP);
+ 	 }
+	TL.onmouseup = function() {
+  		TL.style.backgroundColor = "green";
+	 }
+
+	TR.onmousedown = function() {
+  		TR.style.backgroundColor = "white";
+  		var audio2 = document.createElement("audio");
+  		audio2.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
+  		audio2.autoplay = "true";
+  		// document.appendChild(audio2);
+  		arrP.push(2);
+  		console.log(arrP);
+  	 }
+	TR.onmouseup = function() {
+  		TR.style.backgroundColor = "red";
+	 }
+
+	BL.onmousedown = function() {
+  		BL.style.backgroundColor = "white";
+  		var audio3 = document.createElement("audio");
+  		audio3.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+  		audio3.autoplay = "true";
+  		//document.appendChild(audio3);
+  		arrP.push(3);
+ 	    console.log(arrP);
+     }
+	BL.onmouseup = function() {
+  		BL.style.backgroundColor = "yellow";
+	 }
+
+	BR.onmousedown = function() {
+  		BR.style.backgroundColor = "white";
+  		var audio4 = document.createElement("audio");
+  		audio4.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
+  		audio4.autoplay = "true";
+  		// document.appendChild(audio4);
+  		arrP.push(4);
+  		console.log(arrP);
+	 }
+	BR.onmouseup = function() {
+  		BR.style.backgroundColor = "blue";
+	 } 
+    
+    return arrP;
+
+    }else{
+
+    	return false;
+    }
+
+
+
+    console.log("arrP is "+ arrP);
+    }
+
+
+  var compare=function(){
+  	console.log("i",i);
+  	console.log("arrP length is", arrP.length);
+  	if(0<arrP.length){
+    	if (arrC[i] === arrP[i]){
+    		arrP.push("input");
+    		console.log(arrP);
+    		i++;
+    		console.log("i="+i);
+   	 	  } else {
+
+   	 	  	
+    		arrC = [];
+    		arrP = [];
+    	  }
+    	  
+  	  	 }
+  	  }
+
+     
+
+	/*    
+	var compare=function(arr1,arr2){
+  	 if(arr1.length!==arr2.length){
+      return false;
+  	  } else {
+      for (i=0;i<arr1.length;i++){
+       if(arr1[i]!==arr2[i]){
+        return false;
+       }
+     } 
+  	   return true;
+  	  }  
+	  }
+	*/
+
+/*function with response to each element of arrC*/
+  var response = function() {
+  	for(var x=0;x<arrC.length;x++){   
+    	if (arrC[x]=== 1) {
+    		TL.style.backgroundColor = "white";
+    		var audio1 = document.createElement("audio");
+    		audio1.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
+   			 audio1.autoplay = "true";
+    		TL.style.backgroundColor = "green";
+  		} else if (arrC[x]=== 2) {
+    		TR.style.backgroundColor = "white";
+    		var audio2 = document.createElement("audio");
+    		audio2.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
+   			 audio2.autoplay = "true";
+    		TR.style.backgroundColor = "red";
+  		} else if (arrC[x] === 3) {
+  		  	BL.style.backgroundColor = "white";
+    		var audio3 = document.createElement("audio");
+    		audio3.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+    		audio3.autoplay = "true";
+    		BL.style.backgroundColor = "yellow";
+  		} else {
+    		BR.style.backgroundColor = "white";
+    		var audio4 = document.createElement("audio");
+    		audio4.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
+    		audio4.autoplay = "true";
+    		BR.style.backgroundColor = "blue";
+  		 }
+ 		};
+     };
+
+compTurn();
+console.log("1");
+playerTurn();
+console.log("2");
+//compare();
+ </script>
+</body>
